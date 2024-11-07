@@ -1,32 +1,38 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/moment.pug
 
 block main 
   .tour-detail 
     .container.my-3
       .row 
         .col-6 
-          .inner-images 
-            .inner-image 
-              img(src="https://backend.daca.vn/assets/tour/images/tour-ha-long.jpg")
+          if(tourDetail.images)
+            .inner-images 
+              each image in tourDetail.images
+                .inner-image 
+                  img(src=image)
+          
+          
 
         .col-6 
-          .inner-title Tour gi do 
+          .inner-title #{tourDetail.title}
           
           .inner-barcode 
-            <i class="fa-solid fa-barcode"></i> Ma tour
+            <i class="fa-solid fa-barcode"></i> #{tourDetail.code}
 
           .inner-time-start 
-            <i class="fa-solid fa-calendar-days"></i> Lich di
+            <i class="fa-solid fa-calendar-days"></i> 
+            +formatDateTime(tourDetail.timeStart)
 
           .inner-stock 
-            <i class="fa-solid fa-person-walking-luggage"></i> Con 5 cho
+            <i class="fa-solid fa-person-walking-luggage"></i> #{tourDetail.stock}
 
-          .inner-price-special 400,000d
+          .inner-price-special #{tourDetail.price_special.toLocaleString()}đ
 
-          .inner-price 500,000d
+          .inner-price #{tourDetail.price.toLocaleString()}đ
 
-          .inner-percent Giam toi xx%
+          .inner-percent #{tourDetail.discount}%
 
           form(
             form-add-to-cart
@@ -38,7 +44,7 @@ block main
               name="quantity"
               value="1"
               min="1"
-              max="10"
+              max=tourDetail.stock
             )
             button(
               type="submit"
@@ -51,11 +57,11 @@ block main
           .inner-infomation 
             .inner-label Thong tin tour 
             .inner-text 
-              | Noi dung thong tin tour ...
+              | !{tourDetail.information}
         
         .col-12
           .inner-infomation 
             .inner-label Lich trinh tour 
             .inner-text 
-              | Noi dung Lich trinh tour ...
+              | !{tourDetail.schedule}
 

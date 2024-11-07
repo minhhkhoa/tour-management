@@ -1,6 +1,7 @@
 import express, { Express } from "express"
 import dotenv from "dotenv"
 import clientRoutes from "./routes/client/index.route"
+import moment from "moment"
 
 dotenv.config()
 
@@ -13,6 +14,9 @@ app.use(express.static("public"))
 
 app.set("views", "./views");
 app.set("view engine", "pug");
+
+// app Local variable
+app.locals.moment = moment
 
 
 //-client route
