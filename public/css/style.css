@@ -1,3 +1,28 @@
+/* Kiểm soát kích thước của ảnh trong Swiper */
+.tour-detail .swiper {
+  width: 100%;
+  max-width: 500px;
+  /* Đặt giới hạn chiều rộng tối đa cho Swiper */
+  margin: auto;
+}
+
+.tour-detail .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tour-detail .swiper-slide .inner-image img {
+  width: 100%;
+  max-width: 100%;
+  /* Đảm bảo ảnh không vượt quá kích thước của slide */
+  max-height: 300px;
+  /* Đặt chiều cao tối đa để ảnh không bị phóng to */
+  object-fit: cover;
+  /* Giữ tỷ lệ ảnh và cắt nếu vượt quá */
+  border-radius: 5px;
+}
+
 /* header */
 .header {
   border-bottom: 1px solid #ddd;
@@ -24,8 +49,6 @@
   margin-left: 20px;
 }
 
-/*end header */
-
 /* footer */
 .footer {
   background: #333;
@@ -33,8 +56,6 @@
   text-align: center;
   padding: 10px;
 }
-
-/*end footer */
 
 /* box-head */
 .box-head {
@@ -47,10 +68,9 @@
   font-weight: 600;
   color: green;
 }
-/*end box-head */
 
 /* start detail tour */
-/* Tổng thể container */
+/* Container tổng thể */
 .tour-detail .container {
   display: flex;
   flex-wrap: wrap;
@@ -67,6 +87,8 @@
 
 .tour-detail .inner-image img {
   width: 100%;
+  height: auto;
+  /* Giữ tỷ lệ ảnh */
   border-radius: 5px;
 }
 
@@ -74,7 +96,6 @@
   font-size: 1.5em;
   font-weight: bold;
   color: #d9534f;
-  /* Màu đỏ */
 }
 
 .tour-detail .inner-barcode,
@@ -89,7 +110,6 @@
 
 .tour-detail .inner-price-special {
   color: #d9534f;
-  /* Màu đỏ */
   font-weight: bold;
   font-size: 1.5em;
 }
@@ -101,11 +121,11 @@
 
 .tour-detail .inner-percent {
   color: #5cb85c;
-  /* Màu xanh lá cây */
 }
 
 .tour-detail .inner-infomation {
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  margin-left: 60px;
 }
 
 .tour-detail .inner-label {
@@ -120,4 +140,16 @@
   font-size: 1em;
   color: #555;
 }
+
+/* Điều chỉnh kích thước Swiper khi màn hình nhỏ */
+@media (max-width: 768px) {
+  .tour-detail .swiper {
+    max-width: 100%;
+  }
+
+  .tour-detail .swiper-slide .inner-image img {
+    max-height: 200px;
+  }
+}
+
 /* end detail tour */
