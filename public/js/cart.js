@@ -59,6 +59,8 @@ const drawListTour = () => {
 
       //goi ham
       deleteItemInCart()
+
+      updateQuantityInCart()
     })
 }
 //-end ve ra danh sach tour
@@ -85,6 +87,33 @@ const deleteItemInCart = () => {
   })
 }
 //-end xoa sp
+
+
+//-start update quantity
+const updateQuantityInCart = () => {
+  const listInputUpdate = document.querySelectorAll("[list-tour] input[item-id]")
+  listInputUpdate.forEach(input => {
+    input.addEventListener("change", () => {
+      const tourId = input.getAttribute("item-id")
+
+      //-lay ra giatri
+      const quantity = parseInt(input.value)
+
+      const cart = JSON.parse(localStorage.getItem("cart"))
+
+      //- lay ra dua can update
+      const tourUpdate = cart.find(item => item.tourId == tourId)
+      tourUpdate.quantity = quantity
+
+      // //-luu moi
+      localStorage.setItem("cart", JSON.stringify(cart))
+
+      // //- sau khi xoa song thi ve lai giao dien
+      drawListTour()
+    })
+  })
+}
+//-end update quantity
 
 
 
