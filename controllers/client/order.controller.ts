@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import Order from "../../models/order.model";
 import { generateOrderCode } from "../../helpers/generate";
-import { off } from "process";
 import Tour from "../../models/tour.model";
 import OrderItem from "../../models/order-item.model";
 
@@ -65,5 +64,12 @@ export const order = async (req: Request, res: Response) => {
     code: 200,
     message: "Đặt hàng thành công!",
     orderCode: code //- muc dich de dung cai nay lam trang dat hang thanh cong voi ma don hang nay
+  })
+}
+
+//-[get]: /order/success
+export const success = async (req: Request, res: Response) => {
+  res.render("client/pages/order/success", {
+    pageTitle: "Đặt hàng thành công"
   })
 }
