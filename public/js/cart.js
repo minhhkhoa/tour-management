@@ -1,19 +1,20 @@
 //-sang file default.pug nhung file js da
 
-//-lay ra data va in ra giao dien
-fetch("http://localhost:3000/cart/list-json", { //-gui data tu localstorage cho be
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: localStorage.getItem("cart")
-})
-//-cho phan hoi ve
-  .then(res => res.json())
-  .then(data => {
-    //-ve ra giao dien
-    const htmlsArray = data.tours.map((item, index) => {
-      return `
+//-start ve ra danh sach tour
+const drawListTour = () => {
+  fetch("http://localhost:3000/cart/list-json", { //-gui data tu localstorage cho be
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: localStorage.getItem("cart")
+  })
+    //-cho phan hoi ve
+    .then(res => res.json())
+    .then(data => {
+      //-ve ra giao dien
+      const htmlsArray = data.tours.map((item, index) => {
+        return `
         <tr>
           <td>
             ${index + 1}
@@ -43,16 +44,51 @@ fetch("http://localhost:3000/cart/list-json", { //-gui data tu localstorage cho 
           </td>
         </tr>
       `
+      })
+
+
+      const listTour = document.querySelector("[list-tour]")
+      listTour.innerHTML = htmlsArray.join("")
+
+      //-tinh tong tien don hang
+      const totalPrice = data.tours.reduce((sum, item) => sum + parseInt(item.total), 0)
+
+      const elementTotalPrice = document.querySelector("[total-price]")
+      elementTotalPrice.innerHTML = totalPrice.toLocaleString()
+
+
+      //goi ham
+      deleteItemInCart()
     })
+}
+//-end ve ra danh sach tour
 
 
-    const listTour = document.querySelector("[list-tour]")
-    listTour.innerHTML = htmlsArray.join("")
+//-start  xoa sp
+const deleteItemInCart = () => {
+  const listBtnDelete = document.querySelectorAll("[btn-delete]")
+  listBtnDelete.forEach(button => {
+    button.addEventListener("click", () => {
+      const tourId = button.getAttribute("btn-delete")
 
-    //-tinh tong tien don hang
-    const totalPrice = data.tours.reduce((sum, item) => sum + parseInt(item.total), 0)
-    
-    const elementTotalPrice = document.querySelector("[total-price]")
-    elementTotalPrice.innerHTML = totalPrice.toLocaleString()
+      const cart = JSON.parse(localStorage.getItem("cart"))
+
+      //-tao ra cart moi sau khi xoa
+      const newCart = cart.filter(item => item.tourId != tourId)
+
+      //-luu moi
+      localStorage.setItem("cart", JSON.stringify(newCart))
+
+      //- sau khi xoa song thi ve lai giao dien
+      drawListTour()
+    })
   })
+}
+//-end xoa sp
+
+
+
+//-lay ra data va in ra giao dien
+//-goi ham
+drawListTour()
 //-end lay ra data va in ra giao dien
