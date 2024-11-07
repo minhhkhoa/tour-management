@@ -48,3 +48,76 @@
   color: green;
 }
 /*end box-head */
+
+/* start detail tour */
+/* Tổng thể container */
+.tour-detail .container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tour-detail .inner-images {
+  display: flex;
+  flex-direction: column;
+}
+
+.tour-detail .inner-image {
+  margin-bottom: 10px;
+}
+
+.tour-detail .inner-image img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.tour-detail .inner-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #d9534f;
+  /* Màu đỏ */
+}
+
+.tour-detail .inner-barcode,
+.tour-detail .inner-time-start,
+.tour-detail .inner-stock,
+.tour-detail .inner-price-special,
+.tour-detail .inner-price,
+.tour-detail .inner-percent {
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+
+.tour-detail .inner-price-special {
+  color: #d9534f;
+  /* Màu đỏ */
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.tour-detail .inner-price {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.tour-detail .inner-percent {
+  color: #5cb85c;
+  /* Màu xanh lá cây */
+}
+
+.tour-detail .inner-infomation {
+  margin-top: 20px;
+}
+
+.tour-detail .inner-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 1.2em;
+}
+
+.tour-detail .inner-text {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  font-size: 1em;
+  color: #555;
+}
+/* end detail tour */
