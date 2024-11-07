@@ -157,7 +157,15 @@ if (formOrder) {
     })
       .then(res => res.json())
       .then(data => {
-        
+        if(data.code === 200){
+          //-dat thanh cong thi xoa gio hang di
+          localStorage.removeItem("cart")
+
+          //-di den trang dat hang thanh cong
+          window.location.href = `/order/success?orderCode=${data.orderCode}`
+        } else{
+          alert("Đặt hàng thất bại")
+        }
       })
   })
 }
