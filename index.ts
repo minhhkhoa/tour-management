@@ -9,6 +9,11 @@ dotenv.config()
 const app: Express = express();
 const port: number | string = process.env.PORT || 3000;
 
+//-thay the cho body-parser
+app.use(express.json()); // Để parse JSON
+app.use(express.urlencoded({ extended: true })); // Để parse URL-encoded
+//-end thay the cho body-parser
+
 app.use(express.static("public"))
 
 

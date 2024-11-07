@@ -6,6 +6,8 @@ const router: Router = Router()
 
 router.get("/", controller.index)
 
+router.post("/list-json", controller.listJson)
+
 
 
 export const cartRoutes: Router = router
