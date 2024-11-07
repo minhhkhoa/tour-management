@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import Order from "../../models/order.model";
 import { generateOrderCode } from "../../helpers/generate";
+import { off } from "process";
+import Tour from "../../models/tour.model";
+import OrderItem from "../../models/order-item.model";
 
 //-[post]: /order
 export const order = async (req: Request, res: Response) => {
@@ -31,6 +34,32 @@ export const order = async (req: Request, res: Response) => {
       id: orderId
     }
   })
+
+  //-luu data vao bang orders_item
+  for (const item of data.cart) {
+    const dataItem = {
+      orderId: orderId,
+      tourId: item.tourId,
+      quantity: item.quantity 
+    }
+
+    //-lay du lieu cua tour do
+    const infoTour = await Tour.findOne({
+      where: {
+        id: item.tourId,
+        deleted: false,
+        status: "active"
+      },
+      raw: true
+    })
+
+    dataItem["price"] = infoTour["price"]
+    dataItem["discount"] = infoTour["discount"]
+    dataItem["timeStart"] = infoTour["timeStart"]
+
+    //-luu
+    await OrderItem.create(dataItem)
+  }
 
   res.json({
     code: 200,
