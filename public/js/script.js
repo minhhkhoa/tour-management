@@ -17,6 +17,25 @@ var swiper2 = new Swiper(".mySwiper2", {
 });
 //-end lider tour detail
 
+//-thong bao dat hang thanh cong
+const alertAddCartSuccess = () => {
+  const elementAlert = document.querySelector("[alert-add-cart-success]")
+
+  elementAlert.classList.remove("alert-hidden")
+
+  //-sau 2,5s thi tat di
+  setTimeout(() => {
+    elementAlert.classList.add("alert-hidden")
+  }, 3000)
+
+  //-hoac bam tat
+  const closeAlert = elementAlert.querySelector("[close-alert]")
+  closeAlert.addEventListener("click", () => {
+    elementAlert.classList.add("alert-hidden")
+  })
+}
+//-thong bao dat hang thanh cong
+
 
 
 //-start cart 
@@ -47,13 +66,16 @@ if (formAddToCard) {
           tourId: tourId,
           quantity: quantity
         })
-      } else{ //-neu ton tai thi update quantity
+      } else { //-neu ton tai thi update quantity
         cart[isExistTour].quantity = cart[isExistTour].quantity + quantity
       }
 
 
       //-update vao storgare
       localStorage.setItem("cart", JSON.stringify(cart))
+
+      //-goi ham alert
+      alertAddCartSuccess()
     }
   })
 }
