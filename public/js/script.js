@@ -36,6 +36,19 @@ const alertAddCartSuccess = () => {
 }
 //-thong bao dat hang thanh cong
 
+//-start mini cart
+const showMiniCart = () => {
+  const cart = JSON.parse(localStorage.getItem("cart"))
+
+  // -tinh toan
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0)
+
+  const miniCart = document.querySelector("[mini-cart]")
+  miniCart.innerHTML = totalQuantity
+}
+showMiniCart()
+//-end mini cart
+
 
 
 //-start cart 
@@ -76,6 +89,10 @@ if (formAddToCard) {
 
       //-goi ham alert
       alertAddCartSuccess()
+
+      //-update mini cart
+      showMiniCart()
+
     }
   })
 }
