@@ -121,3 +121,44 @@ const updateQuantityInCart = () => {
 //-goi ham
 drawListTour()
 //-end lay ra data va in ra giao dien
+
+
+//-satrt đặt tour
+const formOrder = document.querySelector("[form-order]")
+if (formOrder) {
+  formOrder.addEventListener("submit", (event) => {
+    event.preventDefault(); //-ngan chan hanh vi mac dinh la load lai trang
+
+    //-lay infor ng dat
+    const fullName = event.target.elements.fullName.value
+    const phone = event.target.elements.phone.value
+    const note = event.target.elements.note.value
+
+    //-lay ra gio hang
+    const cart = JSON.parse(localStorage.getItem("cart"))
+
+
+    const data = {
+      info: {
+        fullName: fullName,
+        phone: phone,
+        note: note
+      },
+      cart: cart
+    }
+
+    //-gui len be bang API
+    fetch("/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(data => {
+        
+      })
+  })
+}
+//-end đặt tour
